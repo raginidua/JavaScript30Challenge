@@ -78,9 +78,6 @@
     const seconds = now.getSeconds();
     const secondsDegrees = ((seconds / 60) * 360) + 90;
     secondHand.style.transform = `rotate(${secondsDegrees}deg)`;
-    if (seconds === 1) {
-      secondHand.style.transition = 0s;
-    }
 
     const minHand = document.querySelector('.min-hand');
     const mins = now.getMinutes();
