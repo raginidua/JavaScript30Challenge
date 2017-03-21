@@ -21,6 +21,22 @@
   <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
 
   <style>
+    :root {
+      --base: #ffc600;
+      --spacing: 20px;
+      --blur: 10px;
+    }
+
+    img {
+      padding: var(--spacing);
+      background: var(--base);
+      filter: blur(var(--blur));
+    }
+
+    .hl {
+      color: var(--base);
+
+    }
 
     /*
       misc styles, nothing to do with CSS variables
@@ -48,6 +64,7 @@
   </style>
 
   <script>
+    const inputs = document.querySelectorAll('.controls input')
   </script>
 
 </body>
