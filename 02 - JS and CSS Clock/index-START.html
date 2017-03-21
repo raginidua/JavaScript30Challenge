@@ -66,13 +66,41 @@
       transform-origin: 100%;
       transform: rotate(90deg);
       transition: all 0.5s;
+      transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
     }
 
   </style>
 
   <script>
+  function setDate() {
+    const secondHand = document.querySelector('.second-hand');
+    const now = new Date();
+    const seconds = now.getSeconds();
+    const secondsDegrees = ((seconds / 60) * 360) + 90;
+    secondHand.style.transform = `rotate(${secondsDegrees}deg)`;
+    if (seconds === 1) {
+      secondHand.style.transition = 0s;
+    }
 
+    const minHand = document.querySelector('.min-hand');
+    const mins = now.getMinutes();
+    const minsDegrees = ((mins/60) * 360) + 90
+    minHand.style.transform = `rotate(${minsDegrees}deg)`;
 
+    const hourHand = document.querySelector('.hour-hand')
+    const hours = now.getHours();
+    let hoursForClock
+    if (hours > 12) {
+      hoursForClock = hours - 12
+    } else {
+      hoursForClock = hours;
+    }
+    const hoursDegrees = ((hours/12) * 360) + 90
+    hourHand.style.transform = `rotate(${hoursDegrees}deg)`;
+  }
+
+  setInterval(setDate, 1000);
   </script>
+
 </body>
 </html>
