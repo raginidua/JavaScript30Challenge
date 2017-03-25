@@ -50,12 +50,17 @@
         0 0 10px rgba(0,0,0,0.2);
     }
 
+    /*This div above relates to the actual circle which has a border*/
+
     .clock-face {
       position: relative;
       width: 100%;
       height: 100%;
       transform: translateY(-3px); /* account for the height of the clock hands */
+      /*background-color: red;*/
     }
+
+    /*This is a second div on which the hands will be placed, its invisible but it is actually a square which fits directly in the middle of the circle.  You can see it by changing the background color.*/
 
     .hand {
       width:50%;
@@ -68,6 +73,8 @@
       transition: all 0.5s;
       transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
     }
+
+    /*The .hand relates to the hour, minute and second hand, each of which has a class of hand. The width (which is actually the length) of each of these is defined by its position inside the clock face, as 50%, and the height (which is actually the thickeness) is specificied.  We have rotated each of them to 90 degrees so that it initially starts at 12 o clock. */
 
   </style>
 
@@ -101,3 +108,5 @@
 
 </body>
 </html>
+
+<!-- The JS above takes each of the hours, minutes and second hands and figures out how much they should be rotated by based on the current time. Initially the 90 degrees has already been accounted for, but when we change the transform to rotate, we need to add the 90 in again, as it is being rotated from its initial position, and the 90 needs to be factored in again. -->
