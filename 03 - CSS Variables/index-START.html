@@ -7,6 +7,9 @@
 <body>
   <h2>Update CSS Variables with <span class='hl'>JS</span></h2>
 
+<!--The above word JS has been given a class of hl so that it is connected to the colour change. -->
+
+<!--The controls below, because they are called inputs allow us to predefine cetai things, like what kind of input it is, in this case a range.  The type range is what allows it to be a slider, and the minimum and maximum values of that are predefined.  The data-sizing is a way to add 'px' to the value.  Anything which is data- is like an html class, a way to add additional information.  The input type color produce a color picker.-->
   <div class="controls">
     <label for="spacing">Spacing:</label>
     <input id="spacing" type="range" name="spacing" min="10" max="200" value="10" data-sizing="px">
@@ -26,6 +29,8 @@
       --spacing: 20px;
       --blur: 10px;
     }
+
+    /*Declaring the CSS variables on root, which is one of the highest levels you can delcare something on, sort of like declaring it on HTML.  We need to define the variables so that we can start using them.  The -- notation is the SASS equivalent of $, so we can in fact use variables in HTML/CSS as well. */
 
     img {
       padding: var(--spacing);
@@ -75,6 +80,8 @@
     inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
 
   </script>
+
+  <!--The JavaScript function above basically takes everything which has a class of controls and is an input. We then loop through each of those and if there is either a mousemove or a change over those inputs, we trigger the handleUpdate function.  The handleUpdate function set the name of that particular input (spacing, blur or base) as the variable, and sets the value of that variable as whatever is on the input.  The suffix is there to add the words 'px' if its blur or spacing, or to add nothing if it is color. -->
 
 </body>
 </html>
