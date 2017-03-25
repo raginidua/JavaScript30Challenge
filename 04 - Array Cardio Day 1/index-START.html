@@ -34,10 +34,19 @@
     const fifteen = inventors.filter(inventor => (inventor.year >= 1500 && inventor.year < 1600))
     console.table(fifteen);
 
+    // The first example above takes the array inventors, and applies the .filter method.  By default this loops through each of the items in the array, and in this case we are taking a single argument, inventor (although we could have chosen to name this something completely different, like person) and we are returning those inventors where the property 'year' is both greater than or equal to 1500 and less than 1600.
+    // The way the filter method works is that you pass it a function, and it will apply that function to each item in the array. The argument is inventor and the long handed way would be to take an if statement and then return true if it was true. By returning true, this would effectively keep those items inside the return. The above shorthand notation is just delivering anything which meets the condition stated above.
+
     // Array.prototype.map()
     // 2. Give us an array of the inventors' first and last names
     const inventorsFullNames = inventors.map(inventor => inventor.first + " " + inventor.last);
     console.log(inventorsFullNames);
+
+    // This .map method creates a new array with the results of calling a specific function on each element in the array.  So the long hand of the above would be as follows:
+    // const inventorsFullNames2 = inventors.map(function(inventor) {
+    //   return inventor.first + " " + inventor.last;
+    // });
+    // console.log(inventorsFullNames2);
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
@@ -51,6 +60,10 @@
 
     console.table(inventorsAge);
 
+    // The .sort method sorts the elements of an array into a certai position and returns the updated array. We are using a compare function above, which basically works by saying that if its less than 0, you sort a to a lower index than b, i.e. a comes first.  If it is greater than 0, you sort a to a higher index than b, i.e. b comes first. if it returns 0, you leave a and b alone with respect to each other - the 0 would be used if a and b were equal to each other, for example. It effectively does this on the array repeatedly until everything is in the right order.
+
+
+
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live?
     const totalYears = inventors.reduce((total, inventor) => {
@@ -58,6 +71,9 @@
     }, 0);
 
     console.log(totalYears);
+
+    // The .reduce method is one of the harder ones to understand. Here, we are basically saying that 
+
 
     // 5. Sort the inventors by years lived
     const oldest = inventors.sort(function(a,b) {
