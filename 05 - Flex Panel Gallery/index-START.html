@@ -27,6 +27,8 @@
       display: flex;
     }
 
+    /*The overall div which contains the individual panels is called 'panels', and we set a height of the entire screen in which the individual panels will be contained. The overflow property relates to what happens if the content overflows the elements box - we are saying hidden but this could also be visible (the default), scroll, whereby a scroll is used to see the rest of the content and others.  The display is flex so that we give the children elements the flex property. The point of the flex property is to make it so that there is a more efficient way to lay out, align, and distribute space among items in a container, even when their size is unknown or dynamic.*/
+
     .panel {
       background:#6B0F9C;
       box-shadow:inset 0 0 0 5px rgba(255,255,255,0.1);
@@ -49,6 +51,8 @@
       flex-direction: column;
     }
 
+    /*The above are the individual panels.  The flex direction property tells us that it is going as columns.  This is set out top to bottom.However adding display flex is what makes them go across - the panels are both flex items and flex container, so the p content inside them also becomes flex.  As a result, the information all becomes flex because we are stacking them left to right, which is the default Largely speaking, flexbox is  single directional content. flex:, the property above is shorthand for flex-grow, flex-shrink and flex-basis combined, although we have left those out here and the only one that we are referring to and giving a value of 1 of is the flexgrow.  This defines the ability for a flex item to grow if necessary, and it accepts a unitless value which serves as portion. As all items have the value 1, they are equally spaced across the page, but if one has the value 2, it will be twice as big as all the others. */
+
 
     .panel1 { background-image:url(https://source.unsplash.com/gYl-UtwNg_I/1500x1500); }
     .panel2 { background-image:url(https://source.unsplash.com/1CD3fd8kHnE/1500x1500); }
@@ -56,6 +60,8 @@
     .panel4 { background-image:url(https://source.unsplash.com/ITjiVXcwVng/1500x1500); }
     .panel5 { background-image:url(https://source.unsplash.com/3MNzGlQM7qs/1500x1500); }
 
+
+    /*The * notation below is referring to the items inside the panels.  Since the panel is a flex item as well as a flex container we have set the display to flex, so here too we can set values for flex.  These also have transitions. */
     .panel > * {
       margin:0;
       width: 100%;
@@ -66,11 +72,13 @@
       align-items: center;
     }
 
+/*The specific transitions (for the top text to come down and the top text to come up is as per the below)*/
     .panel > *:first-child { transform: translateY(-100%);}
     .panel.open-active > *:first-child { transform: translateY(0);}
     .panel > *:last-child { transform: translateY(100%);}
     .panel.open-active > *:last-child { transform: translateY(0);}
 
+/*The below makes the center text larger and uppercase*/
     .panel p {
       text-transform: uppercase;
       font-family: 'Amatic SC', cursive;
@@ -123,6 +131,7 @@
       this.classList.toggle('open');
     }
 
+
     function toggleActive() {
       if(event.propertyName.includes('flex')) {
         this.classList.toggle('open-active');
@@ -132,6 +141,9 @@
     panels.forEach(panel => panel.addEventListener('click', toggleOpen))
 
     panels.forEach(panel => panel.addEventListener('transitionend', toggleActive))
+
+    // The functions above loop through each item with a class of panel, add event Listeners for click and transition end and then run the toggleOpen and toggleActive functions, respectively.  The toggleOpen function adds a class of open to the function. This increases the font size and makes the flex 5 so it takes up 5 times as much space as the others.  The toggleActive class is at the end of that when the text also transforms down.
+
   </script>
 
 
