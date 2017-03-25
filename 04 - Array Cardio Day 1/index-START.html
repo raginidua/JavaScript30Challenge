@@ -72,7 +72,7 @@
 
     console.log(totalYears);
 
-    // The .reduce method is one of the harder ones to understand. Here, we are basically saying that 
+    // The .reduce method is one of the harder ones to understand. It basically applies a function against an accumulator and each element in the array, from left to right, to reduce it to a single number. The 'total' above is the running total.  The '0' is basically the number we use for the first time, as otherwise this would be undefined and the total sum would be undefined plus the number.
 
 
     // 5. Sort the inventors by years lived
@@ -84,6 +84,8 @@
 
     console.table(oldest);
 
+    // This is another sort function, but instead of just a and b on their own, we use them to define additional variables.  The return in the last line is shortland to say that if lastGuy is greater than nextGuy then return -1 otherwise return 1.
+
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
     // const category = document.querySelector('.mw-category');
@@ -93,19 +95,27 @@
     //             .filter(streetName => streetName.includes('de'));
 
 
+    // The above example was done in the console of the wikipedia page, but we are basically taking each of the items which have a class of '.mw-category'. Within that, we take each of the arrays.  We then loop through the arrays, first using .map to deliver a new array which has the text content, and then filtering through that and running a function which takes the argument streetName, to return only those items whereby the streetName includes the word 'de'.  As before, streetName could be called anything else, thats just the argument name.
+
+
+
     // 7. sort Exercise
     // Sort the people alphabetically by last name
     const alphabet = people.sort(function(a,b) {
     const [aLast, aFirst] = a.split(', ');
     const [bLast, bFirst] = b.split(', ');
+    console.log(aLast, aFirst);
     if (aLast > bLast) {
       return 1
     } else {
       return -1
     }
     });
-
+;
     console.log(alphabet);
+
+    //The example above takes the people array, which this time does not consist of objects and sorts it.  Once again we need to define new variables, and the short hand for this is to take const [aLast, aFirst] and then split it into two different variables using the .split method. So this way we can sort based on just one of the variables, i.e. the last name.
+
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
@@ -120,6 +130,8 @@
     }, {});
 
     console.log(total);
+
+    // The example above once again takes the reduce method.  So we are taking each of the items in the array, using an accumulator, which we are calling object, and taking a second argument, which is the value.  So if we were to console log item, it knows that it is the independent value of each item in the array. So the obj[item] is the accunulator of each type of item.  Need some more practice on this function.
 
   </script>
 </body>
