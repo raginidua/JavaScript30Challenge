@@ -17,6 +17,8 @@
 <script>
 const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
 
+// The data in the above which has the const endpoint is a very large array which consist of objects. 
+
 const cities = [];
 
 fetch(endpoint).then(blob => console.log(blob))
