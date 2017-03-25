@@ -7,7 +7,7 @@
 </head>
 <body>
 
-
+<!--Each keyboard button corresponds with a certain data-key,so this has been used here to identify that specific key.  The HTML kbd tag relates to a keyboard input.-->
   <div class="keys">
     <div data-key="65" class="key">
       <kbd>A</kbd>
@@ -47,6 +47,7 @@
     </div>
   </div>
 
+<!-- The audio sounds also link to a specific data key.  -->
   <audio data-key="65" src="sounds/clap.wav"></audio>
   <audio data-key="83" src="sounds/hihat.wav"></audio>
   <audio data-key="68" src="sounds/kick.wav"></audio>
@@ -57,6 +58,7 @@
   <audio data-key="75" src="sounds/tom.wav"></audio>
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
+<!--This is the JS section of the file.-->
 <script>
 
 function playSound(e) {
@@ -68,14 +70,20 @@ function playSound(e) {
   key.classList.add('playing');
   }
 
+  // The play sound function above defines a const of audio, which will pick up a corresponding sound for a specific key code, as well as a key, which picks up the divs above which have a class of key. If there is no corresponding audio sound we jump to the end of the function, but otherwise we play the audio, first setting the time to 0 so that it alaways plays from the beginning when a new key is clicked.  We add a class of 'playing' to the div which is defined in the CSS file.
+
   function removeTransition(e) {
     if (e.propertyName !== 'transform') return;
     console.log(e.propertyName);
     this.classList.remove('playing');
   }
 
+  // The propertyName above returns the name of the CSS property associated with the transition when a transition event occurs.  If that propertyName is 'transform', which it would be, then we remove the class of playing and the key will go back to looking the way it was before. 
+
   const keys = document.querySelectorAll('.key');
   keys.forEach(key => key.addEventListener('transitionend',removeTransition));
+
+  // Here, we are looping over each of the divs with a class key, and listening for the event, 'transitionend' - this is basically referring to the transition which happens when we add the class playing, as we specifically have a transform in the 'playing' class.  So once that transition is over, we run the function above, removeTransition.
 
   window.addEventListener('keydown', playSound);
 </script>
