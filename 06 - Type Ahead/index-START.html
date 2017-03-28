@@ -17,11 +17,38 @@
 <script>
 const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
 
-// The data in the above which has the const endpoint is a very large array which consist of objects. 
+// The data in the above which has the const endpoint is a very large array which consist of objects.
 
 const cities = [];
 
-fetch(endpoint).then(blob => console.log(blob))
+fetch(endpoint)
+  .then(blob => blob.json());
+  .then(data => cities.push(..data));
+
+// The .. in the formula above is to ensure that this does not return an array into an array, which is what would happen.
+
+function findMatches(wordToMatch, cities) {
+  return cities.filter(place => {
+    const regex = new RegExp(wordToMatch, 'gi');
+    return place.city.match(regex) || place.state.match(regex);
+  })
+}
+
+// Here, we use RegExp where we pass in the word, and the g is for global, and the i was for insensitive - to read into Regex more.  We are looking for the wordToMatch in both the place and the state.
+
+function displayMatches() {
+  const matchArray = findMatches(this.value, cities);
+}
+
+const searchInput = document.querySelector('.search');
+const suggestions = document.querySelector('.suggestions');
+
+searchInput.addEventListener('change', displayMatches);
+searchInput.addEventListener('keyup', displayMatches);
+
+
+
+
 
 </script>
   </body>
