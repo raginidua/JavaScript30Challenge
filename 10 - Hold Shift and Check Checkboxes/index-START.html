@@ -99,6 +99,27 @@
   </div>
 
 <script>
+  const checkboxesArray = [...document.querySelectorAll('.inbox input[type = "checkbox" ]')];
+  console.log(checkboxesArray);
+  checkboxesArray.forEach(checkbox => checkbox.addEventListener('click', checkIndexOfClicked))
+
+  function checkIndexOfClicked(e) {
+    const indexOfClicked = checkboxesArray.indexOf(this);
+    const noneChecked = checkboxesArray.every(checkbox => {
+      return !checkbox.checked
+    });
+    if (noneChecked) {
+      console.log('None are checked');
+    } else {
+      const evt = e || window.event;
+      if (evt.shiftKey) {
+        console.log(`The shift key is down and the checkbox has an index of ${indexOfClicked}`);
+      }
+    }
+  }
+
 </script>
+
+
 </body>
 </html>
