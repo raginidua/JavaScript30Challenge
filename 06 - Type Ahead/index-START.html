@@ -20,16 +20,19 @@ const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb
 // The data in the above which has the const endpoint is a very large array which consist of objects.
 
 const cities = [];
+// The first thing we have to do is create an empty array into which the cities can be populated.
 
 fetch(endpoint)
   .then(blob => blob.json())
   .then(data => cities.push(...data));
 
-// The .. in the formula above is to ensure that this does not return an array into an array, which is what would happen.
+// The fetch API provides an interface for fetching resources, including across the network.  The equivalent is $.get, but the browser now has one built in. This works differently to the usual whereby we use a callback function, fetch actually is a promise, so we have to use .then after the promise.  If we just log blob, the data that comes back from our fetch, so we have to convert the raw data into json, and we do this by json(). If we look at console.log, there is a method called json which tells us how to  change this information.  So this returns another promise, which returns the raw data.  The data is a massive array of al of the cities. So we could have done let cities = [] initially, and then say data => data = cities. Instead, we push it, and the .. in that formula above is to ensure that this does not return an array into an array, which is what would happen.
 
 function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
+
+// This is just a function from the internet on how to do this.
 
 function findMatches(wordToMatch, cities) {
   return cities.filter(place => {
@@ -38,7 +41,8 @@ function findMatches(wordToMatch, cities) {
   })
 }
 
-// Here, we use RegExp where we pass in the word, and the g is for global, and the i was for insensitive - to read into Regex more.  We are looking for the wordToMatch in both the place and the state.
+// So here we are saying whatever is searched for and the cities array, we are going to take that array and then we need to see if the city or state matches what was searchd for.  So we use RegExp, which is a 'Regular Expression'.  We are taking a variable and putting it into a regular expression.  The 'g' refers to global, as in we find all the matches, not just the first one, and the 'i' is for insensitive, as in case sensitive.  We need to look for the place and the state so we specify both of these here.
+
 
 function displayMatches() {
   const matchArray = findMatches(this.value, cities);
@@ -55,6 +59,9 @@ function displayMatches() {
   }).join();
   suggestions.innerHTML = html;
 }
+
+// The function in the example above uses the below.  So we are saying any time the search Input changes, we run the display Matches function.  We add the keyup function because we don't just want a change (where you click outside the input), but also when you type anything.
+// The above function is basically saying the following: we take the findMatches function, and put through the value of 'this', i.e. what is being searched, and the cities. The .map returns an array, although what we really want is one string, so we add the .join() at the end. We incorporate the regex above in order to highlight whatever isbeing typed in so we can see this changing live.  We are adding the class 'hl' to that, which makes it highlighted. 
 
 const searchInput = document.querySelector('.search');
 const suggestions = document.querySelector('.suggestions');
