@@ -78,7 +78,7 @@ function playSound(e) {
     this.classList.remove('playing');
   }
 
-  // The propertyName above returns the name of the CSS property associated with the transition when a transition event occurs.  If that propertyName is 'transform', which it would be, then we remove the class of playing and the key will go back to looking the way it was before. 
+  // The propertyName above returns the name of the CSS property associated with the transition when a transition event occurs.  If that propertyName is 'transform', which it would be, then we remove the class of playing and the key will go back to looking the way it was before.
 
   const keys = document.querySelectorAll('.key');
   keys.forEach(key => key.addEventListener('transitionend',removeTransition));

@@ -100,7 +100,6 @@
 
 <script>
   const checkboxesArray = [...document.querySelectorAll('.inbox input[type = "checkbox" ]')];
-  console.log(checkboxesArray);
   checkboxesArray.forEach(checkbox => checkbox.addEventListener('click', checkIndexOfClicked))
 
   function checkIndexOfClicked(e) {
@@ -113,7 +112,18 @@
     } else {
       const evt = e || window.event;
       if (evt.shiftKey) {
-        console.log(`The shift key is down and the checkbox has an index of ${indexOfClicked}`);
+        checkboxesArray.forEach(function(checkbox) {
+          if (checkbox.checked) {
+            const indexOfOtherChecked = checkboxesArray.indexOf(checkbox);
+            if (indexOfOtherChecked < indexOfClicked) {
+              checkboxesArray.forEach(function(checkbox) {
+                if ((checkboxesArray.indexOf(checkbox) > indexOfOtherChecked) && checkboxesArray.indexOf(checkbox) < indexOfClicked) {
+                  checkbox.checked = true;
+                }
+              })
+            }
+          }
+        });
       }
     }
   }
