@@ -8,6 +8,8 @@
 
   <p onClick="makeGreen()">×BREAK×DOWN×</p>
 
+  <!-- To find what is changing something in the screen which you know is JS, so you can inspect the element, find it in the DOM, select 'break on' by right-clicking, and then go to attriute modifications. So now when it changes it pops in a debugger command for a break point here. It will pause and then show us the line of code where this is changing. -->
+
   <script>
     const dogs = [{ name: 'Snickers', age: 2 }, { name: 'hugo', age: 8 }];
 
@@ -18,28 +20,69 @@
     }
 
     // Regular
+    console.log('hello');
 
     // Interpolated
+    console.log('Hello I am a %s string!', '&hearts');
 
     // Styled
+    console.log('%c Hello, what is up?', 'font-size: 50px; background: red');
 
     // warning!
+    console.warn('OH NO!');
 
     // Error :|
+    console.error('Shit!');
 
     // Info
+    console.info('Crocodiles eat 3-4 people a year')
 
-    // Testing
+    // Testing - this only shows on the console if it is false.
+    console.assert(1 === 1)
+    console.assert(1 === 3)
 
-    // clearing
+    const p = document.querySelector('p');
+    console.assert(p.classList.contains('ouch'), 'That is wrong!');
 
-    // Viewing DOM Elements
+    // clearing - this just clears the whole console
+    // console.clear();
+
+    // Viewing DOM Elements - Using dir gives you all the properties and methods on it.
+    console.log(p);
+    console.dir(p);
+
+    console.clear();
 
     // Grouping together
+    dogs.forEach(dog => {
+      console.group(`${dog.name}`)
+      // console.groupCollapse(`${dog.name}`)
+      console.log(`This is ${dog.name}`);
+      console.log(`${dog.name} is ${dog.age} years old`);
+      console.log(`${dog.name} is ${dog.age * 7} dog years old`);
+      console.groupEnd(`${dog.name}`);
+    });
+
 
     // counting
+    console.count('Wes')
+    console.count('Wes')
+    console.count('Steve')
+    console.count('Wes')
+    console.count('Steve')
+    console.count('Wes')
 
     // timing
+    console.time('fetching data');
+    fetch('https://api.github.com/users/wesbos')
+      .then(data => data.json())
+      .then(data => {
+        console.timeEnd('fetching data');
+        console.log(data);
+      });
+
+
+    console.table(dogs);
 
   </script>
 </body>
