@@ -7,23 +7,32 @@
 <body>
 <canvas id="draw" width="800" height="800"></canvas>
 
+<!-- The html tag <canvas> is used to draw graphics on the fly via scripting. The canvas element is only the container for graphics though, we need to use javascript to get something on the page. -->
+
+
 <script>
 
 const canvas = document.querySelector('#draw');
+// We use the line above to grab the canvas html tag.
 const ctx = canvas.getContext('2d');
+// getContext specifies that we are using 2d rendering context.  This is something that is predefined in the canvas html tag.
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
+// We are defining the canvas width and height as the entire page.
 ctx.strokeStyle = '#BADA55';
 ctx.lineJoin = 'round';
 ctx.lineCap = 'round';
 ctx.lineWidth = 100;
 ctx.globalCompositeOperation = 'multiply';
+// The above are certain predefined parameters.
 
 let isDrawing = false;
 let lastX = 0;
 let lastY = 0;
 let hue = 0;
 let direction = true;
+
+// The draw function below takes the event, and if isDrawing is true, we start drawing.  Several of the items below, including beginPath are predefined as part of the canvas object. 
 
 function draw(e){
   if (!isDrawing) return;
@@ -53,6 +62,8 @@ canvas.addEventListener('mousedown', (e) => {
   isDrawing = true;
   [lastX, lastY] = [e.offsetX, e.offsetY];
 })
+
+// Here we have defined the different conditions under which we are drawing.  If we have a mousedown event, we change the variable isDrawing to true, and if it then moves, we trigger the function draw, otherwise if we click up or are outside the canvas, isDrawing is set to false.
 
 canvas.addEventListener('mousemove', draw)
 canvas.addEventListener('mouseup', () => isDrawing = false)
