@@ -35,10 +35,18 @@ function handleRangeUpdate() {
   video[this.name] = this.value;
 }
 
+// This function is for the progressBar, which should be updating in real time. Looking at the progress bar element, it has a flex-basis bar which is based on a percentage. Current time and duration are just properties of the video. We want this to run often, so the way to do this, so we could do a time out and do it every second, but instead we just listen for the time update event and it will mean that every time the time code of the video changes, this function will be run.
+function handleProgress() {
+  const percent = (video.currentTime / video.duration) * 100;
+  progressBar.flexBasis = `${percent}`;
+}
+
 // Hook up the event listener.
 video.addEventListener('click', togglePlay);
 video.addEventListener('play', updateButton);
 video.addEventListener('pause', updateButton);
+
+video.addEventListener('timeupdate', handleProgress);
 
 toggle.addEventListener('click', togglePlay);
 
