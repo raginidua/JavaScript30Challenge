@@ -38,8 +38,15 @@ function handleRangeUpdate() {
 // This function is for the progressBar, which should be updating in real time. Looking at the progress bar element, it has a flex-basis bar which is based on a percentage. Current time and duration are just properties of the video. We want this to run often, so the way to do this, so we could do a time out and do it every second, but instead we just listen for the time update event and it will mean that every time the time code of the video changes, this function will be run.
 function handleProgress() {
   const percent = (video.currentTime / video.duration) * 100;
-  progressBar.flexBasis = `${percent}`;
+  progressBar.style.flexBasis = `${percent}%`;
 }
+
+// This function allows us to update the timing of the video by dragging the progress bar forward. So we listen for a click on the video bar, so whatever percentage we click, that will be half way through the video, and scrub the video that percent of its duration. OffsetX is a measure of how much something is offset on the x axis by the parent container. The offset X is a measure of how far along the progress bar the mouse is at, and the progress.offsetWidth is the entire width of the bar.
+function scrub(e) {
+  scrubTime = (e.offsetX / progress.offsetWidth) * video.duration;
+  video.currentTime = scrubTime;
+}
+
 
 // Hook up the event listener.
 video.addEventListener('click', togglePlay);
@@ -55,3 +62,13 @@ skipButtons.forEach(button => button.addEventListener('click', skip));
 // Once again, we do it for both change and mousemove so the volume and range changes as you slide through, not just when you stop clicking and leave it at a new value.
 ranges.forEach(range => range.addEventListener('change', handleRangeUpdate));
 ranges.forEach(range => range.addEventListener('mousemove', handleRangeUpdate));
+
+// This part allows us to create a variable to skip through. as we are clicked down and dragging, but not when we are just hovering.
+let mousedown = false;
+
+progress.addEventListener('click', scrub);
+progress.addEventListener('mousemove', (e) => mousedown && scrub(e));
+
+// This basically works because we are using the variable mousedown, and if it is true it will move on to the rest of the function, otherwise it will not run the rest of it.  So scrub only runs when mousemove is running.
+progress.addEventListener('mousedown', () => mousedown = true);
+progress.addEventListener('mouseup', () => mousedown = false);
