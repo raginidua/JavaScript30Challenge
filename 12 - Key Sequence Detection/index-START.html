@@ -1,3 +1,5 @@
+<!-- This is recognizing what should ahppen when a certain sequence is typed. Buzzfeed has this too. The Konami code is up-up-down-down-left-right-left-right-v-a- start - this might give you unlimited lives in Mario or something else. --->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +8,31 @@
   <script type="text/javascript" src="http://www.cornify.com/js/cornify.js"></script>
 </head>
 <body>
+
 <script>
+
+const pressed = [];
+// We use this so we get an array of everything that was pressed. But because we are only looking for 6 characters.
+const secretCode = 'wesbos';
+// The secret code is the sequence we are looking for.
+
+window.addEventListener('keyup', (e) => {
+  console.log(e.key);
+  pressed.push(e.key);
+  // We splice this here by starting from the end and going backwards to see if it matches, rather than starting from the front. And we only ever want to check the last six characters typed. So we are splicing from the back the length of the secret code -1, in this case 5, and then taking the length of the items that have been pressed less the secret code. So this way it pushes the first letter out.
+  pressed.splice(-secretCode.length - 1, pressed.length - secretCode.length);
+
+  if (pressed.join('').includes(secretCode)) {
+    console.log('Yay!');
+    cornify_add();
+  }
+  console.log(pressed);
+
+});
+
+// The above cornify js, there was a function called cornify and it adds random stuff and unicorns to the screen every time you get the right combination of letters, so its quite fun.
+
 </script>
+
 </body>
 </html>
