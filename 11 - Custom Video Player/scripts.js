@@ -30,6 +30,11 @@ function skip(){
   video.currentTime += parseFloat(this.dataset.skip);
 }
 
+// This function is for the range buttons - range volume and rang playback. The name of both sliders is 'volume' and 'range update', so we can use this.name to update the values and cover both at once.
+function handleRangeUpdate() {
+  video[this.name] = this.value;
+}
+
 // Hook up the event listener.
 video.addEventListener('click', togglePlay);
 video.addEventListener('play', updateButton);
@@ -38,3 +43,7 @@ video.addEventListener('pause', updateButton);
 toggle.addEventListener('click', togglePlay);
 
 skipButtons.forEach(button => button.addEventListener('click', skip));
+
+// Once again, we do it for both change and mousemove so the volume and range changes as you slide through, not just when you stop clicking and leave it at a new value.
+ranges.forEach(range => range.addEventListener('change', handleRangeUpdate));
+ranges.forEach(range => range.addEventListener('mousemove', handleRangeUpdate));
