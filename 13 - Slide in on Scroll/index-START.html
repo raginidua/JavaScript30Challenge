@@ -64,11 +64,27 @@
 
     // Now we want a function checkSlide which runs every time the person scrolls.  If we just use the 'scroll' as the event, then it just runs so many times, and that is too much. So what we want to do, is debounce it, so we run only a certain number of times above. There is a debounce function above, which is just copied from the internet.  So it tells this to run the debounce function every time we scroll, but only run the checkSlide function once every 20 miliseconds. So we can wrap the function inside te debounce. We can see that clearly if we run console.count(e) inside the checkSlide function.
 
-    // But now what we want to do, is actually get the images to come in. So we can loop through each image.  So we need to use Maths to figure out whether or not it is at the right time. So to see how far down the page we are, we can use window.scrollY.  That is however far down the page we are.  So we add the window.innerHeight
+    // But now what we want to do, is actually get the images to come in. So we can loop through each image.  So we need to use Maths to figure out whether or not it is at the right time. So to see how far down the page we are, we can use window.scrollY.  That is however far down the page we are.  So we add the window.innerHeight as well, because this tells us how much we are scrolled down at the very top of our browser, but we want to know how far we are at the top of the browser, so we add the window.innerHeight, and that tells us where we are at the bottom of the browser.  But we want the actual slide to happen halfway where the image is. We also want to know the image botton in case we scroll up from the bottom to the top, so we take the top and add the height of it.
 
     function checkSlide(e) {
-      sliderImages.forEach(slideImage => {
-        const slideInAt = window.scrollY + window.innerHeight;
+      sliderImages.forEach(sliderImage => {
+        // Half way through image
+        const slideInAt = (window.scrollY + window.innerHeight) - sliderImage.height/2;
+
+        // Bottom of image
+        const imageBottom = sliderImage.offsetTop + sliderImage.height;
+
+        // This is making sure we are not scrolled all the way past the image, because if we are, we need to slide it back out again.
+
+        const isHalfShown = slideInAt > sliderImage.offsetTop;
+        const isNotScrolledPast = window.scrollY < imageBottom;
+
+        // Finally, our if statement.  We are applying the class for the time at which the images is half show but is not scrolled past.
+        if (isHalfShown && isNotScrolledPast) {
+          sliderImage.classList.add('active')
+        } else {
+          sliderImage.classList.remove('active')
+        }
       });
     }
 
