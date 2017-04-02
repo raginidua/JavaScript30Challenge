@@ -58,6 +58,23 @@
       };
     }
 
+    // First we need to select all of the images that we are listening for. We have slightly translated them off screen as well as made them transparent. So by default they are going to be hidden.
+
+    const sliderImages = document.querySelectorAll('.slide-in');
+
+    // Now we want a function checkSlide which runs every time the person scrolls.  If we just use the 'scroll' as the event, then it just runs so many times, and that is too much. So what we want to do, is debounce it, so we run only a certain number of times above. There is a debounce function above, which is just copied from the internet.  So it tells this to run the debounce function every time we scroll, but only run the checkSlide function once every 20 miliseconds. So we can wrap the function inside te debounce. We can see that clearly if we run console.count(e) inside the checkSlide function.
+
+    // But now what we want to do, is actually get the images to come in. So we can loop through each image.  So we need to use Maths to figure out whether or not it is at the right time. So to see how far down the page we are, we can use window.scrollY.  That is however far down the page we are.  So we add the window.innerHeight
+
+    function checkSlide(e) {
+      sliderImages.forEach(slideImage => {
+        const slideInAt = window.scrollY + window.innerHeight;
+      });
+    }
+
+    window.addEventListener('scroll', debounce(checkSlide));
+
+
   </script>
 
   <style>
