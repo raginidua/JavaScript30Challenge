@@ -70,6 +70,7 @@
       sliderImages.forEach(sliderImage => {
         // Half way through image
         const slideInAt = (window.scrollY + window.innerHeight) - sliderImage.height/2;
+        console.log(sliderImage.height);
 
         // Bottom of image
         const imageBottom = sliderImage.offsetTop + sliderImage.height;

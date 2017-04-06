@@ -14,6 +14,7 @@
 
 const canvas = document.querySelector('#draw');
 // We use the line above to grab the canvas html tag.
+console.log(canvas);
 const ctx = canvas.getContext('2d');
 // getContext specifies that we are using 2d rendering context.  This is something that is predefined in the canvas html tag.
 canvas.width = window.innerWidth;
@@ -32,7 +33,7 @@ let lastY = 0;
 let hue = 0;
 let direction = true;
 
-// The draw function below takes the event, and if isDrawing is true, we start drawing.  Several of the items below, including beginPath are predefined as part of the canvas object. 
+// The draw function below takes the event, and if isDrawing is true, we start drawing.  Several of the items below, including beginPath are predefined as part of the canvas object.
 
 function draw(e){
   if (!isDrawing) return;
