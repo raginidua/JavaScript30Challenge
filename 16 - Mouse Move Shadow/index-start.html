@@ -35,6 +35,47 @@
   </style>
 
 <script>
+  const hero = document.querySelector('.hero');
+  const text = hero.querySelector('h1');
+  const walk = 100;
+
+  // Here we are defining the different variables.  The hero is the div in which we will listen for a mousemove, and the h1 text inside that has been defined as text.
+  // We define the above as how far the text shadow should actually go? How manu pixels should it stretch?
+
+  function shadow(e) {
+    const width = hero.offsetWidth;
+    const height = hero.offsetHeight;
+    let x = e.offsetX;
+    let y = e.offsetY;
+
+    // This function is triggered on the mousemove.  We define the width, height and the position of our mouse on the x and y axes.
+
+    if(this !== e.target) {
+      x = x + e.target.offsetLeft;
+      y = y + e.target.offsetTop;
+    }
+
+    // We include the function above because if we hove on the h1 (const text), we start again from 0.  We therefore need to define that if 'this', which is what we listened for, is not the same as what the mousemove is being triggered on, then we adjust this by taking the x value as the x value on the h1, plus the offsetLeft of that x1 on the larger div hero. So this makes it the same regardless of where we are hovering.
+
+    const xWalk = Math.round((x / width * walk) - (walk / 2));
+    const yWalk = Math.round((y / height * walk) - (walk / 2));
+
+    // This function above defines the percentage at which the mouse is.  So if x = width, then it will be walk* 1 - walk/2, so 50px will be as high as we will go, and it will then be -50px on the other side.
+
+    text.style.textShadow = `
+    ${xWalk}px ${yWalk}px 0 rgba(255,0,255,0.7),
+    ${xWalk * -1}px ${yWalk}px 0 rgba(0,255,255,0.7),
+    ${yWalk}px ${xWalk * -1}px 0 rgba(0,255,0,0.7),
+    ${yWalk * -1}px ${xWalk}px 0 rgba(0,0,255,0.7)`
+  }
+
+  // In the function above, we are defining multiple textShadows. Text Shadow is the a predefined HTML term, and takes the following parameters, horizontal shadow, vertical shadow, blur radius and colour.  This is what we are defining above.  Therefore as we are closer the xWalk is closer and as we are further away it is further away.  We use -1 so they all go in different directions.
+
+  hero.addEventListener('mousemove', shadow);
+
+  // We are listening for any mousemove inside the div hero, which runs the long function above, shadow.
+
 </script>
+
 </body>
 </html>
