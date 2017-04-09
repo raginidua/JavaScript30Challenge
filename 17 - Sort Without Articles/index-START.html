@@ -46,6 +46,23 @@
 <script>
 const bands = ['The Plot in You', 'The Devil Wears Prada', 'Pierce the Veil', 'Norma Jean', 'The Bled', 'Say Anything', 'The Midway State', 'We Came as Romans', 'Counterparts', 'Oh, Sleeper', 'A Skylit Drive', 'Anywhere But Here', 'An Old Dog'];
 
+function compressBandName(bandName) {
+  return bandName.replace(/^(a |the |an )/i, '').trim();
+}
+// Above, the ^ is saying that the term starts with.  This is based on regular expressions, and the i means it is case insensitive. We need the space so it is in fact a word rather than something like 'Anywhere', as we don't want it to catch this. We only use compressBandName in the if statement, and this helps us sort is based on the stripped version, but still return the full name.
+
+const sortedBands = bands.sort((a, b) => compressBandName(a) > compressBandName(b) ? 1 : -1);
+
+// Here we are using the short hand function for the implicit return.
+
+console.log(sortedBands);
+
+document.querySelector('#bands').innerHTML =
+  sortedBands
+    .map(band => `<li>${band}</li>`)
+    .join('');
+
+// If we don't have the .join('') syntax above, then there will be commas in between them, as this is what would happen if we just sorted it. 
 
 </script>
 
