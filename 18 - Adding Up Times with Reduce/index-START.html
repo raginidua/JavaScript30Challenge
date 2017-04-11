@@ -9,7 +9,7 @@
     <li data-time="5:43">
       Video 1
     </li>
-    <!-- <li data-time="2:33">
+    <li data-time="2:33">
       Video 2
     </li>
     <li data-time="3:45">
@@ -178,47 +178,58 @@
       Video 57
     </li>
     <li data-time="4:04">
-      Video 58 -->
+      Video 58
     </li>
   </ul>
 
 <script>
-const list = document.querySelector('.videos');
+// const list = document.querySelector('.videos');
+//
+// const listItems = list.querySelectorAll('li');
+//
+// const listItemsArray = Array.from(listItems);
+//
+// const listItemsArrayDecimal = listItemsArray.map(function(listItem){
+//   return parseFloat(listItem.dataset.time.replace(':', '.'));
+// });
+//
+// const totalTimeMinutes = listItemsArrayDecimal.reduce((total, listItemTime) => {
+//   return total + Math.floor(listItemTime);
+// }, 0);
+//
+// const totalHours = Math.floor(totalTimeMinutes/60);
+// const remainingMinutes = totalTimeMinutes - totalHours*60;
+//
+// const totalTimeSeconds = listItemsArrayDecimal.reduce((total, listItemTime) => {
+//   const minutes = Math.floor(listItemTime);
+//   return total + (listItemTime - minutes);
+// }, 0);
+//
+// const minsFromSecondsTotal = Math.floor(totalTimeSeconds*100/60);
+//
+// const remainingSeconds = parseInt(totalTimeSeconds*100) - minsFromSecondsTotal*60;
+//
+// console.log(`The total time of the videos is ${totalHours} hours, ${remainingMinutes + minsFromSecondsTotal} minutes and ${remainingSeconds} seconds`);
 
-const listItems = list.querySelectorAll('li');
+const timeNodes = Array.from(document.querySelectorAll('[data-time]'));
 
-const listItemsArray = Array.from(listItems);
+const seconds = timeNodes
+  .map(node => node.dataset.time)
+  .map(timeCode => {
+    const [mins, secs] = timeCode.split(':').map(parseFloat);
+    return (mins * 60) + secs;
+  })
+  .reduce((total, vidSeconds) => total + vidSeconds);
 
-const listItemsArrayDecimal = listItemsArray.map(function(listItem){
-  return parseFloat(listItem.dataset.time.replace(':', '.'));
-});
+  let secondsLeft = seconds;
+  const hours = Math.floor(secondsLeft / 3600);
+  secondsLeft = secondsLeft % 3600;
 
+  const minutes = Math.floor(secondsLeft / 60);
+  secondsLeft = secondsLeft % 60;
 
-const totalTimeMinutes = listItemsArrayDecimal.reduce((total, listItemTime) => {
-  return total + Math.floor(listItemTime);
-}, 0);
+  console.log(`The video time is ${hours} hours, ${minutes} minutes and ${secondsLeft} seconds`);
 
-console.log(totalTimeMinutes);
-
-const totalHours = Math.floor(totalTimeMinutes/60);
-const remainingMinutes = totalTimeMinutes - totalHours*60;
-
-const totalTimeSeconds = listItemsArrayDecimal.reduce((total, listItemTime) => {
-  const minutes = Math.floor(listItemTime);
-  return total + (listItemTime - minutes);
-}, 0);
-
-console.log(totalTimeSeconds*100);
-
-const minsFromSecondsTotal = Math.floor(totalTimeSeconds*100/60);
-
-const remainingSeconds = parseInt(totalTimeSeconds*100) - minsFromSecondsTotal*60;
-
-console.log(minsFromSecondsTotal);
-
-console.log(remainingSeconds);
-
-console.log(`The total time of the videos is ${totalHours} hours, ${remainingMinutes + minsFromSecondsTotal} minutes and ${remainingSeconds} seconds`);
 
 </script>
 
